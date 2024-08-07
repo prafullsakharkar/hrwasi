@@ -1,0 +1,9 @@
+bind = "0.0.0.0:8001"
+worker_class = "sync"
+timeout = 500
+loglevel = "debug"
+capture_output = True
+limit_request_line = 8190
+acceslogformat = "%(h)s %(l)s %(u)s %(t)s %(r)s %(s)s %(b)s %(f)s %(a)s"
+accesslog = "/var/log/myapp/access.log"
+errorlog = "/var/log/myapp/error.log"

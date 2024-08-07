@@ -1,0 +1,58 @@
+services:
+
+  frontend:
+    container_name: frontend
+    build:
+      context: ./frontend
+    volumes:
+      - frontend:/app/build
+
+  backend:
+    container_name: backend
+    restart: always
+    volumes:
+      - ./logs:/var/log/myapp
+      - static-data:/app/staticfiles/static
+    env_file:
+      - backend/.env
+    build:
+      context: ./backend
+    ports:
+      - "8001:8001"
+
+  nginx:
+    container_name: nginx
+    restart: always
+    build:
+      context: ./nginx
+    volumes:
+      - frontend:/var/www/frontend
+      - static-data:/static
+    ports:
+      - "80:80"
+    depends_on:
+      - frontend
+      - backend
+      - memcached
+
+  redis:
+    restart: always
+    container_name: redis
+    image: redis:latest
+    env_file:
+      - backend/.env
+    ports:
+      - "6379:6379"
+    entrypoint: redis-server --appendonly yes --requirepass 'As3!tuXat0m!R3p128'
+
+  memcached:
+    restart: always
+    container_name: memcached
+    image: memcached:latest
+    ports:
+      - "11211:11211"
+
+volumes:
+  logs:
+  frontend:
+  static-data:
