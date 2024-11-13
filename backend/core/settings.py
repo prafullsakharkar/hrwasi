@@ -72,10 +72,21 @@ ASGI_APPLICATION = "core.asgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": config("DBNAME"),
+        "USER": config("DBUSER"),
+        "PASSWORD": config("DBPASS"),
+        "HOST": config("DBHOST"),
+        "PORT": config("DBPORT", default="5432"),
+        # "OPTIONS": {"sslmode": "require"},
     }
 }
 
@@ -132,9 +143,7 @@ DOMAIN = config("DOMAIN")
 SITE_NAME = "ATOM"
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-DEFAULT_FROM_EMAIL = config(
-    "DEFAULT_FROM_EMAIL", default="Admin <mail.admin@example.com>"
-)
+DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL", default="Admin <mail.admin@example.com>")
 EMAIL_HOST = config("EMAIL_HOST")
 EMAIL_PORT = config("EMAIL_PORT", 25)
 EMAIL_HOST_USER = config("EMAIL_HOST_USER", "mail.admin@example.com")

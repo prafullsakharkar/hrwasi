@@ -32,7 +32,7 @@ const PageConfigs = {
 	routes: [
 		{
 			path: 'pages',
-			auth: authRoles.onlyGuest,
+			auth: authRoles.Guest,
 			children: [
 				{
 					path: '',

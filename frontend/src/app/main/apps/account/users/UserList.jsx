@@ -22,7 +22,7 @@ function UserList(props) {
 	const [validationErrors, setValidationErrors] = useState({});
 	const [editedUsers, setEditedUsers] = useState({});
 	const [activeUser, setActiveUser] = useState(true);
-	const roles = ["admin", "user"]
+	const roles = ["Admin", "User", "Employee", "Client"]
 
 	// useEffect(() => {
 	// 	dispatch(getUsers({ is_active: !!(activeUser) }));

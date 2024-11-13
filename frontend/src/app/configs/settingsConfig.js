@@ -1,5 +1,6 @@
 import themesConfig from 'app/configs/themesConfig';
 import i18n from '../../i18n';
+import { authRoles } from '../auth';
 /**
  * The settingsConfig object is a configuration object for the Custom application's settings.
  */
@@ -41,7 +42,7 @@ const settingsConfig = {
 	 * To make the whole app accessible without authorization by default set defaultAuth: null
 	 * The individual route configs which have auth option won't be overridden.
 	 */
-	defaultAuth: ['admin'],
+	defaultAuth: authRoles.User,
 	/**
 	 * The loginRedirectUrl property defines the default redirect URL for the logged-in user.
 	 */

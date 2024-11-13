@@ -1,15 +1,16 @@
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import { useEffect } from 'react';
-import JwtService from '@auth/jwtService';
-import Logo from '@components/layout/Logo';
+import Logo from 'app/theme-layouts/shared-components/Logo';
 import Box from '@mui/material/Box';
+import useAuth from 'src/app/auth/useAuth';
 
 
 function SignOutPage() {
+  const { signOut } = useAuth();
   useEffect(() => {
     setTimeout(() => {
-      JwtService.logout();
+      signOut();
     }, 1000);
   }, []);
 

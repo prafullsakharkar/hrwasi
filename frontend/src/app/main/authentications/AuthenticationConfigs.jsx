@@ -31,7 +31,7 @@ const AuthenticationConfigs = {
       },
     },
   },
-  auth: authRoles.onlyGuest,
+  auth: authRoles.Guest,
   routes: [
     {
       path: 'sign-in',

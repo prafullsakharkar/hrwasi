@@ -1,5 +1,5 @@
 const jwtAuthConfig = {
-	tokenStorageKey: 'jwt_access_token',
+	tokenStorageKey: 'access',
 	getUserUrl: '/api/users/me/',
 	signInUrl: '/api/jwt/create/',
 	signUpUrl: '/api/users/',

@@ -5,18 +5,16 @@ const authRoles = {
 	/**
 	 * The admin role grants access to users with the 'admin' role.
 	 */
-	admin: ['admin'],
+	Admin: ['Admin'],
 	/**
-	 * The staff role grants access to users with the 'admin' or 'staff' role.
+	 * The Employee role grants access to users with the 'admin' or 'Employee' role.
 	 */
-	staff: ['admin', 'staff'],
+	Client: ['Admin', 'Client'],
+	Employee: ['Admin', 'Employee', 'Client'],
+	User: ['Admin', 'Employee', 'User', 'Client'],
 	/**
-	 * The user role grants access to users with the 'admin', 'staff', or 'user' role.
+	 * The Guest role grants access to unauthenticated users.
 	 */
-	user: ['admin', 'staff', 'user'],
-	/**
-	 * The onlyGuest role grants access to unauthenticated users.
-	 */
-	onlyGuest: []
+	Guest: []
 };
 export default authRoles;
