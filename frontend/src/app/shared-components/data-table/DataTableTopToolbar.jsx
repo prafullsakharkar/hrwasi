@@ -1,3 +1,5 @@
+import CustomSvgIcon from '@custom/core/CustomSvgIcon';
+import { IconButton, SvgIcon, Tooltip } from '@mui/material';
 import Box from '@mui/material/Box';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import {
@@ -10,6 +12,7 @@ import {
 } from 'material-react-table';
 
 function DataTableTopToolbar({ table }) {
+
 	const {
 		getState,
 		options: {
@@ -20,7 +23,9 @@ function DataTableTopToolbar({ table }) {
 			positionGlobalFilter,
 			positionPagination,
 			positionToolbarDropZone,
-			renderTopToolbarCustomActions
+			renderTopToolbarCustomActions,
+			removeEntry,
+			createEntry
 		},
 		refs: { topToolbarRef }
 	} = table;
@@ -32,8 +37,8 @@ function DataTableTopToolbar({ table }) {
 	const globalFilterProps = {
 		sx: !isTablet
 			? {
-					zIndex: 2
-				}
+				zIndex: 2
+			}
 			: undefined,
 		table
 	};
@@ -47,7 +52,7 @@ function DataTableTopToolbar({ table }) {
 
 					if (toolbarProps?.ref) {
 						// eslint-disable-next-line
-                // @ts-ignore
+						// @ts-ignore
 						toolbarProps.ref.current = ref;
 					}
 				}}
@@ -70,7 +75,7 @@ function DataTableTopToolbar({ table }) {
 					<div className="flex flex-1">{renderTopToolbarCustomActions?.({ table }) ?? null}</div>
 
 					{enableToolbarInternalActions ? (
-						<Box className="flex items-center space-x-8">
+						<Box className="flex items-center space-x-4">
 							{enableGlobalFilter && positionGlobalFilter === 'right' && (
 								<MRT_GlobalFilterTextField
 									{...globalFilterProps}
@@ -80,6 +85,20 @@ function DataTableTopToolbar({ table }) {
 								/>
 							)}
 							<MRT_ToolbarInternalButtons table={table} />
+							{createEntry && <Tooltip title="Create New">
+								<IconButton color="info" onClick={() => createEntry(table)}>
+									<CustomSvgIcon size={20}>heroicons-outline:plus-circle</CustomSvgIcon>
+								</IconButton>
+							</Tooltip>}
+							{removeEntry && table.getSelectedRowModel().rows.length > 0 && <Tooltip title="Delete Selected">
+								<IconButton color="error" onClick={() => {
+									const selectedRows = table.getSelectedRowModel().rows;
+									selectedRows.map((row) => removeEntry(row.original.id));
+									table.resetRowSelection();
+								}}>
+									<CustomSvgIcon size={20}>heroicons-outline:trash</CustomSvgIcon>
+								</IconButton>
+							</Tooltip>}
 						</Box>
 					) : (
 						enableGlobalFilter &&

@@ -1,6 +1,5 @@
 import GlobalStyles from '@mui/material/GlobalStyles';
-import UsersHeader from './UsersHeader';
-import UserList from './UserList';
+import UserTable from './UserTable';
 
 /**
  * The products page.
@@ -16,9 +15,7 @@ function Users() {
 				})}
 			/>
 			<div className="w-full h-full container flex flex-col">
-				{/* <UsersHeader /> */}
-				{/* <UsersTable /> */}
-				<UserList />
+				<UserTable />
 			</div>
 		</>
 	);

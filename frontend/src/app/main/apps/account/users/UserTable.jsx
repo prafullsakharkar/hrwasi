@@ -12,21 +12,18 @@ import CustomLoading from '@custom/core/CustomLoading';
 import DataTable from 'app/shared-components/data-table/DataTable';
 import { showMessage } from '@custom/core/CustomMessage/customMessageSlice';
 
-function UserList(props) {
+function UserTable(props) {
 	const dispatch = useDispatch();
-	const { data: users, isLoading } = useGetUsersQuery();
+	const [activeUser, setActiveUser] = useState(true);
+	const { data: users, isLoading } = useGetUsersQuery({ is_active: activeUser });
 	const [deleteUser] = useDeleteUserMutation();
 	const [updateUser] = useUpdateUserMutation();
 	const [createUser] = useCreateUserMutation();
 
 	const [validationErrors, setValidationErrors] = useState({});
 	const [editedUsers, setEditedUsers] = useState({});
-	const [activeUser, setActiveUser] = useState(true);
-	const roles = ["Admin", "User", "Employee", "Client"]
 
-	// useEffect(() => {
-	// 	dispatch(getUsers({ is_active: !!(activeUser) }));
-	// }, [!!activeUser]);
+	const roles = ["Admin", "Client", "User", "Employee"]
 
 	const validateRequired = (value) => !!value.length;
 	const validateEmail = (email) =>
@@ -68,6 +65,13 @@ function UserList(props) {
 		setEditedUsers({})
 		setValidationErrors({});
 	}
+
+	const showAddUser = (table) => {
+		rowCancel(table);
+		setEditedUsers({ is_active: "true", role: "user" });
+		table.setCreatingRow(true);
+	}
+
 	//CREATE action
 	const handleCreateUser = async ({ values, table }) => {
 		if (Object.keys(values).length) {
@@ -124,7 +128,7 @@ function UserList(props) {
 				header: 'Active',
 				accessorKey: 'is_active',
 				grow: true,
-				size: 150,
+				size: 48,
 				filterVariant: 'select',
 				filterSelectOptions: ["true", "false"],
 				Cell: ({ cell }) => (
@@ -310,6 +314,7 @@ function UserList(props) {
 			<DataTable
 				data={users}
 				columns={columns}
+				isLoading={isLoading}
 				createDisplayMode='row'
 				editDisplayMode='row'
 				enableEditing={true}
@@ -319,6 +324,8 @@ function UserList(props) {
 				onCreatingRowSave={handleCreateUser}
 				onEditingRowCancel={() => rowCancel}
 				onEditingRowSave={handleSaveUser}
+				removeEntry={deleteUser}
+				createEntry={showAddUser}
 				renderRowActions={
 					({ row, table }) => (
 						<Box sx={{ display: 'flex', gap: '1rem' }}>
@@ -339,44 +346,15 @@ function UserList(props) {
 						</Box>
 					)}
 				renderTopToolbarCustomActions={({ table }) => {
-					const { rowSelection } = table.getState();
-
 					return (
-
 						<Stack direction="row" spacing={1}>
 							<FormControlLabel control={<Checkbox
 								size="small"
 								label="Select Inactive Users"
 								color='secondary'
-								checked={!activeUser}
+								checked={activeUser}
 								onChange={() => setActiveUser(!activeUser)} />} label="Show Inactive" sx={{ marginLeft: '2px' }}
 							/>
-							<Button
-								variant="contained"
-								size="small"
-								onClick={() => {
-									rowCancel(table);
-									setEditedUsers({ is_active: "true", role: "user" });
-									table.setCreatingRow(true);
-								}}
-								color="secondary"
-							>
-								<CustomSvgIcon size={16}>heroicons-outline:plus</CustomSvgIcon>
-								<span className="hidden sm:flex mx-8">Add user</span>
-							</Button>
-							{Object.keys(rowSelection).length !== 0 && <Button
-								variant="contained"
-								size="small"
-								onClick={() => {
-									const selectedRows = table.getSelectedRowModel().rows;
-									removeUsers(selectedRows.map((row) => row.original.id));
-									table.resetRowSelection();
-								}}
-								color="error"
-							>
-								<CustomSvgIcon size={16}>heroicons-outline:trash</CustomSvgIcon>
-								<span className="hidden sm:flex mx-8">Delete selected</span>
-							</Button>}
 						</Stack>
 					);
 				}}
@@ -385,4 +363,4 @@ function UserList(props) {
 	)
 }
 
-export default UserList;
+export default UserTable;

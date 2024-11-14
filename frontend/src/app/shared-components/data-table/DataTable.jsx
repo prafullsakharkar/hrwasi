@@ -74,7 +74,7 @@ function DataTable(props) {
 		() =>
 			_.defaults(rest, {
 				initialState: {
-					density: 'spacious',
+					density: 'compact',
 					showColumnFilters: false,
 					showGlobalFilter: true,
 					columnPinning: {

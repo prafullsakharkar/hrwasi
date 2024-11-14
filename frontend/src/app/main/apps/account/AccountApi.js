@@ -9,7 +9,7 @@ const AccountApi = api
 	.injectEndpoints({
 		endpoints: (build) => ({
 			getUsers: build.query({
-				query: () => ({ url: userEndPoint }),
+				query: (queryParams) => ({ url: userEndPoint, params: queryParams }),
 				providesTags: ['account_users']
 			}),
 			deleteUsers: build.mutation({
