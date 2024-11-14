@@ -14,9 +14,7 @@ function Users() {
 					}
 				})}
 			/>
-			<div className="w-full h-full container flex flex-col">
-				<UserTable />
-			</div>
+			<UserTable />
 		</>
 	);
 }

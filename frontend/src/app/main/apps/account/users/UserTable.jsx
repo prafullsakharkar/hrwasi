@@ -48,7 +48,7 @@ function UserTable(props) {
 				? 'First Name is Required'
 				: ''
 		)
-		validate.last_name = user.hasOwnProperty('last_name') && !validateRequired(user?.last_name) ? 'Last Name is Required' : ''
+		// validate.last_name = user.hasOwnProperty('last_name') && !validateRequired(user?.last_name) ? 'Last Name is Required' : ''
 		validate.email = user.hasOwnProperty('email') && (
 			!validateEmail(user?.email)
 				? 'Incorrect Email Format' : validateExists("email", user?.email)
@@ -315,7 +315,7 @@ function UserTable(props) {
 				data={users}
 				columns={columns}
 				isLoading={isLoading}
-				createDisplayMode='row'
+				createDisplayMode='modal'
 				editDisplayMode='row'
 				enableEditing={true}
 				enableRowSelection={true}
@@ -352,7 +352,7 @@ function UserTable(props) {
 								size="small"
 								label="Select Inactive Users"
 								color='secondary'
-								checked={activeUser}
+								checked={!activeUser}
 								onChange={() => setActiveUser(!activeUser)} />} label="Show Inactive" sx={{ marginLeft: '2px' }}
 							/>
 						</Stack>
