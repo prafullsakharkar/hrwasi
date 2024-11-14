@@ -308,7 +308,7 @@ function UserTable(props) {
 	}
 	return (
 		<Paper
-			className="flex flex-col flex-auto shadow-3 rounded-t-16 overflow-hidden rounded-b-0 w-full h-full"
+			className="flex flex-col flex-auto shadow-3 rounded-t-0 overflow-hidden rounded-b-0 w-full h-full"
 			elevation={0}
 		>
 			<DataTable

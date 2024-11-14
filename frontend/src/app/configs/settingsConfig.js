@@ -32,8 +32,8 @@ const settingsConfig = {
 	 */
 	theme: {
 		main: themesConfig.charcoalTealDark,
-		navbar: themesConfig.charcoalTealDark,
-		toolbar: themesConfig.charcoalTealDark,
+		navbar: themesConfig.greyDark,
+		toolbar: themesConfig.greyDark,
 		footer: themesConfig.charcoalTealDark
 	},
 	/**
